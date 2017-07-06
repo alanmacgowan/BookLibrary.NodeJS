@@ -9,8 +9,7 @@ var bookController = function (nav) {
         next();
     };
     var getIndex = function (req, res) {
-        var url =
-            'mongodb://localhost:27017/libraryApp';
+        var url = 'mongodb://localhost:27017/libraryApp';
 
         mongodb.connect(url, function (err, db) {
             var collection = db.collection('books');
@@ -40,11 +39,11 @@ var bookController = function (nav) {
                     _id: id
                 },
                 function (err, results) {
-                        res.render('bookView', {
-                            title: 'Books',
-                            nav: nav,
-                            book: results
-                        });
+                    res.render('bookView', {
+                        title: 'Books',
+                        nav: nav,
+                        book: results
+                    });
                 }
 
             );
