@@ -1,2 +1,2 @@
 # BookLibrary.NodeJS
-Sample application using NodeJs and Express
+Sample application using NodeJs, Express and MongoDB.
