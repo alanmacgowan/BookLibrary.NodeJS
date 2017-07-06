@@ -1,9 +1,7 @@
 {
-  "name": "library",
+  "name": "booklibrary",
   "version": "0.0.0",
-  "authors": [
-    "Jonathan Mills <jonathanfmills@gmail.com>"
-  ],
+  "authors": [""],
   "license": "MIT",
   "ignore": [
     "**/.*",

@@ -8,11 +8,12 @@ var app = express();
 var port = process.env.PORT || 5000;
 var nav = [{
     Link: '/Books',
-    Text: 'Book'
+    Text: 'Books'
 }, {
     Link: '/Authors',
     Text: 'Author'
 }];
+
 var bookRouter = require('./src/routes/bookRoutes')(nav);
 
 app.use(express.static('public'));
@@ -29,7 +30,7 @@ app.use('/Books', bookRouter);
 
 app.get('/', function (req, res) {
     res.render('index', {
-        title: 'Hello from render',
+        title: 'Book Library',
         nav: [{
             Link: '/Books',
             Text: 'Books'
@@ -41,7 +42,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/books', function (req, res) {
-    res.send('Hello Books');
+    res.send('Book Library');
 });
 
 app.listen(port, function (err) {
