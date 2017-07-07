@@ -13,22 +13,16 @@ var bookController = function (nav) {
 
     var getBooks = function (req, res) {
 
-        // Book.count((err, bookCount) => {
-        //     var count = bookCount;
-        //     console.log(`Book count: ${count}`);
-
-            Book.find({}, (err, books) => {
-                if (err) { 
-                    console.log(`*** bookController.getBooks error: ${err}`); 
-                }
-                res.render('bookListView', {
-                    title: 'Books',
-                    nav: nav,
-                    books: books
-                });
+        Book.find({}, (err, books) => {
+            if (err) { 
+                console.log(`*** getBooks error: ${err}`); 
+            }
+            res.render('bookListView', {
+                title: 'Books',
+                nav: nav,
+                books: books
             });
-
-        // });
+        });
 
     };
 

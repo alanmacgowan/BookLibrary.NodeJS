@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var db = require('./src/common/DB');
+var passport = require('passport');
 var app = express();
 var port = process.env.PORT || 5000;
 var nav = [{
@@ -41,6 +42,7 @@ class Server {
         app.use(bodyParser.urlencoded());
         app.use(cookieParser());
         app.use(session({secret: 'library'}));
+        require('./src/common/passport')(app);
     }
 
     initCustomMiddleware(){
@@ -69,6 +71,8 @@ class Server {
         });
         var bookRouter = require('./src/routes/bookRoutes')(nav);
         app.use('/Books', bookRouter);
+        var authRouter = require('./src/routes/authRoutes')(nav);
+        app.use('/Auth', authRouter);
     }
 
 }
