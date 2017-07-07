@@ -1,8 +1,8 @@
-var mongodb = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    Book = require('../models/book');
 
 var bookController = function (nav) {
-    var url = 'mongodb://localhost:27017/libraryApp';
 
     var middleware = function (req, res, next) {
         //if (!req.user) {
@@ -10,50 +10,47 @@ var bookController = function (nav) {
         //}
         next();
     };
-    var getIndex = function (req, res) {
 
-        mongodb.connect(url, function (err, db) {
-            var collection = db.collection('books');
+    var getBooks = function (req, res) {
 
-            collection.find({}).toArray(
-                function (err, results) {
-                    res.render('bookListView', {
-                        title: 'Books',
-                        nav: nav,
-                        books: results
-                    });
+        // Book.count((err, bookCount) => {
+        //     var count = bookCount;
+        //     console.log(`Book count: ${count}`);
+
+            Book.find({}, (err, books) => {
+                if (err) { 
+                    console.log(`*** bookController.getBooks error: ${err}`); 
                 }
-            );
-        });
+                res.render('bookListView', {
+                    title: 'Books',
+                    nav: nav,
+                    books: books
+                });
+            });
+
+        // });
 
     };
 
-    var getById = function (req, res) {
-        var id = new objectId(req.params.id);   
-
-        mongodb.connect(url, function (err, db) {
-            var collection = db.collection('books');
-
-            collection.findOne({
-                    _id: id
-                },
-                function (err, results) {
-                    res.render('bookView', {
-                        title: 'Books',
-                        nav: nav,
-                        book: results
-                    });
-                }
-
-            );
-
+    var getBookById = function (req, res) {
+        var id = req.params.id;
+      
+        Book.find({ '_id': id }, {}, function (err, book) {
+            console.log('getBookById: ' + book);
+            if (err) { 
+                console.log(`*** getBookById error: ${err}`); 
+            }
+            res.render('bookView', {
+                title: 'Book',
+                nav: nav,
+                book: book[0]
+            });
         });
-
     };
 
     return {
-        getIndex: getIndex,
-        getById: getById,
+        getBooks: getBooks,
+        getBookById: getBookById,
         middleware: middleware
     };
 };
