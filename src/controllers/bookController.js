@@ -36,7 +36,6 @@ var bookController = function (nav) {
         var id = req.params.id;
       
         Book.find({ '_id': id }, {}, function (err, book) {
-            console.log('getBookById: ' + book);
             if (err) { 
                 console.log(`*** getBookById error: ${err}`); 
             }

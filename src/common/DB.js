@@ -35,6 +35,6 @@ var DB = function () {
         startUp: startUp,
         close: close
     };
-};
+}();
 
 module.exports = DB;
