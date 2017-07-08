@@ -4,22 +4,28 @@ var mongoose = require('mongoose'),
 
 var bookRepository = function (nav) {
 
-    var getBooks = function () {
+    var getBooks = function (callback) {
         Book.find({}, (err, books) => {
             if (err) { 
                 console.log(`*** getBooks error: ${err}`); 
+                return callback(err); 
             }
-            return books;
+            callback(null, {
+                    books: books
+            });
         });
 
     };
 
-    var getBookById = function (id) {
+    var getBookById = function (id, callback) {
         Book.find({ '_id': id }, {}, function (err, book) {
             if (err) { 
                 console.log(`*** getBookById error: ${err}`); 
+                return callback(err); 
             }
-            return book[0];
+            callback(null, {
+                    book: book[0]
+            });
         });
     };
 

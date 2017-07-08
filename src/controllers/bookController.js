@@ -1,4 +1,4 @@
-var bookRpository = require('bookRepository')();
+var bookRepository = require('../repositories/bookRepository')();
 
 var bookController = function (nav) {
 
@@ -10,21 +10,23 @@ var bookController = function (nav) {
     };
 
     var getBooks = function (req, res) {
-        var books = bookRpository.getBooks();
-        res.render('bookListView', {
-            title: 'Books',
-            nav: nav,
-            books: books
+        bookRepository.getBooks((err, data) => {
+            res.render('bookListView', {
+                title: 'Books',
+                nav: nav,
+                books: data.books
+            });
         });
     };
 
     var getBookById = function (req, res) {
         var id = req.params.id;    
-        var book = bookRpository.getBookById(id);
-        res.render('bookView', {
-            title: 'Book',
-            nav: nav,
-            book: book
+        var book = bookRepository.getBookById(id, (err, data) => {
+            res.render('bookView', {
+                title: 'Book',
+                nav: nav,
+                book: data.book
+            });
         });
     };
 

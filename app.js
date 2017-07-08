@@ -71,7 +71,7 @@ class Server {
         });
         var bookRouter = require('./src/routes/bookRoutes')(nav);
         app.use('/Books', bookRouter);
-        var authRouter = require('./src/routes/authRoutes')(nav);
+        var authRouter = require('./src/routes/authRoutes')();
         app.use('/Auth', authRouter);
     }
 
