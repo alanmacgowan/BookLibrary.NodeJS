@@ -1,43 +1,30 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Book = require('../models/book');
+var bookRpository = require('bookRepository')();
 
 var bookController = function (nav) {
 
     var middleware = function (req, res, next) {
-        //if (!req.user) {
-        //res.redirect('/');
-        //}
+        // if (!req.user) {
+        //     res.redirect('/');
+        // }
         next();
     };
 
     var getBooks = function (req, res) {
-
-        Book.find({}, (err, books) => {
-            if (err) { 
-                console.log(`*** getBooks error: ${err}`); 
-            }
-            res.render('bookListView', {
-                title: 'Books',
-                nav: nav,
-                books: books
-            });
+        var books = bookRpository.getBooks();
+        res.render('bookListView', {
+            title: 'Books',
+            nav: nav,
+            books: books
         });
-
     };
 
     var getBookById = function (req, res) {
-        var id = req.params.id;
-      
-        Book.find({ '_id': id }, {}, function (err, book) {
-            if (err) { 
-                console.log(`*** getBookById error: ${err}`); 
-            }
-            res.render('bookView', {
-                title: 'Book',
-                nav: nav,
-                book: book[0]
-            });
+        var id = req.params.id;    
+        var book = bookRpository.getBookById(id);
+        res.render('bookView', {
+            title: 'Book',
+            nav: nav,
+            book: book
         });
     };
 

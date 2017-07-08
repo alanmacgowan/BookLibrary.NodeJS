@@ -3,11 +3,11 @@ var bookRouter = express.Router();
 
 var router = function (nav) {
     var bookController = require('../controllers/bookController')(nav);
-    bookRouter.use(bookController.middleware);
+    //bookRouter.use(bookController.middleware);
     bookRouter.route('/')
         // .all(function (req, res, next) {
         //     if (!req.user) {
-        //         res.redirect('../');
+        //         res.redirect('/');
         //     }
         //     next();
         // })

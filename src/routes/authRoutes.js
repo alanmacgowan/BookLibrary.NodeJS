@@ -8,7 +8,7 @@ var router = function () {
         .post(passport.authenticate('local', {
             failureRedirect: '/'
         }), function (req, res) {
-            res.redirect('/auth/profile');
+            res.redirect('../books');
         });
 
     authRouter.route('/profile')
